@@ -17,6 +17,12 @@ export default defineConfig({
     xrayPlugin({ bundler: 'vite' }),
     babel({ presets: [reactCompilerPreset()] })
   ],
+  oxc: {
+    decorator: { legacy: true },
+    // Default Oxc skips node_modules .js. If the Lit package still ships
+    // decorator syntax, lower it here so Pages never serves a SyntaxError.
+    include: [/src\/.*\.[jt]sx?$/, /reusable-lit-web-components.*\.js$/],
+  },
   resolve: {
     alias: {
       '@': path.resolve(rootDir, './src'),
