@@ -20,10 +20,6 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(rootDir, './src'),
-      'reusable-lit-web-components': path.resolve(
-        rootDir,
-        'node_modules/reusable-lit-web-components/dist/index.js',
-      ),
     },
   },
 })

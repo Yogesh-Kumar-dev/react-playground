@@ -8,7 +8,7 @@ import { QueryClientProvider } from '@tanstack/react-query'
 import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 import { queryClient } from '@/lib/query-client'
 
-scan({ enabled: true })
+scan({ enabled: import.meta.env.DEV })
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
