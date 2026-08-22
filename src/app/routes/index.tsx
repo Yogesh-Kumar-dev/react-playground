@@ -46,7 +46,8 @@ const routes = [
 ]
 
 // Create router
-const router = createBrowserRouter(routes)
+const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
+const router = createBrowserRouter(routes, { basename })
 
 // Export router provider component
 export function Router() {
