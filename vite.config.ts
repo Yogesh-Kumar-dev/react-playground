@@ -7,7 +7,7 @@ import { xrayPlugin } from '@stinsky/xray/plugin'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: process.env.VITE_BASE_PATH || '/',
+  base: '/',
   plugins: [
     react(),
     tailwindcss(),
@@ -17,6 +17,10 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
+      'reusable-lit-web-components': path.resolve(
+        __dirname,
+        'node_modules/reusable-lit-web-components/dist/index.js',
+      ),
     },
   },
 })
