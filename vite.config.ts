@@ -1,13 +1,16 @@
 import path from 'node:path'
+import { fileURLToPath } from 'node:url'
 import { defineConfig } from 'vite'
 import tailwindcss from '@tailwindcss/vite'
 import react, { reactCompilerPreset } from '@vitejs/plugin-react'
 import babel from '@rolldown/plugin-babel'
 import { xrayPlugin } from '@stinsky/xray/plugin'
 
-// https://vite.dev/config/
+const rootDir = import.meta.dirname ?? path.dirname(fileURLToPath(import.meta.url))
+
 export default defineConfig({
-  base: process.env.VITE_BASE_PATH || '/',
+  // GitHub Pages project site: https://<user>.github.io/react-playground/
+  base: '/react-playground/',
   plugins: [
     react(),
     tailwindcss(),
@@ -16,9 +19,9 @@ export default defineConfig({
   ],
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': path.resolve(rootDir, './src'),
       'reusable-lit-web-components': path.resolve(
-        __dirname,
+        rootDir,
         'node_modules/reusable-lit-web-components/dist/index.js',
       ),
     },

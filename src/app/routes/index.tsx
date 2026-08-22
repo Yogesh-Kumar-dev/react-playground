@@ -46,8 +46,9 @@ const routes = [
 ]
 
 // Create router
-const basename = import.meta.env.BASE_URL.replace(/\/$/, '') || '/'
-const router = createBrowserRouter(routes, { basename })
+const router = createBrowserRouter(routes, {
+    basename: '/react-playground',
+})
 
 // Export router provider component
 export function Router() {
