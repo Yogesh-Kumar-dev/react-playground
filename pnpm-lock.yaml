@@ -58,7 +58,7 @@ importers:
         version: 7.18.2(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       reusable-lit-web-components:
         specifier: github:Yogesh-Kumar-dev/web-components
-        version: https://codeload.github.com/Yogesh-Kumar-dev/web-components/tar.gz/f9b7a4a866ba0d4546cf7530833353f81faf606a
+        version: https://codeload.github.com/Yogesh-Kumar-dev/web-components/tar.gz/70993a48703639ea4687822da62087a98d1400a3
       shadcn:
         specifier: ^4.17.0
         version: 4.17.0(typescript@6.0.3)
@@ -2822,8 +2822,8 @@ packages:
     resolution: {integrity: sha512-oMA2dcrw6u0YfxJQXm342bFKX/E4sG9rbTzO9ptUcR/e8A33cHuvStiYOwH7fszkZlZ1z/ta9AAoPk2F4qIOHA==}
     engines: {node: '>=18'}
 
-  reusable-lit-web-components@https://codeload.github.com/Yogesh-Kumar-dev/web-components/tar.gz/f9b7a4a866ba0d4546cf7530833353f81faf606a:
-    resolution: {gitHosted: true, integrity: sha512-5JEMnoWb0R9aeXHDYhx8MK7tKzeT2Pdj5B/StRIzn6oW0Z/R28gUCxA0XGj0AGbzEONkBI/Nqy0Ilx7HZgiwSw==, tarball: https://codeload.github.com/Yogesh-Kumar-dev/web-components/tar.gz/f9b7a4a866ba0d4546cf7530833353f81faf606a}
+  reusable-lit-web-components@https://codeload.github.com/Yogesh-Kumar-dev/web-components/tar.gz/70993a48703639ea4687822da62087a98d1400a3:
+    resolution: {gitHosted: true, integrity: sha512-Lc2HR4A+JgLSkeZ6lgzB8s8PQpFIKgm5/DRPvK15gg0YeRi8LnX1Mq1YgZZMezu5zEmtp1IJstqTU5vrMn1L1A==, tarball: https://codeload.github.com/Yogesh-Kumar-dev/web-components/tar.gz/70993a48703639ea4687822da62087a98d1400a3}
     version: 0.1.0
 
   reusify@1.1.0:
@@ -5865,7 +5865,7 @@ snapshots:
       onetime: 7.0.0
       signal-exit: 4.1.0
 
-  reusable-lit-web-components@https://codeload.github.com/Yogesh-Kumar-dev/web-components/tar.gz/f9b7a4a866ba0d4546cf7530833353f81faf606a:
+  reusable-lit-web-components@https://codeload.github.com/Yogesh-Kumar-dev/web-components/tar.gz/70993a48703639ea4687822da62087a98d1400a3:
     dependencies:
       lit: 3.3.3
 
