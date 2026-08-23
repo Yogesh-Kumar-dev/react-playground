@@ -38,7 +38,16 @@ export default function WebComponents() {
                         . Instead of shadcn, Lit web components
                         (<code>feedback-modal</code> and{' '}
                         <code>feedback-card</code>) are used for the
-                        presentational UI.
+                        presentational UI. The write-up for this setup is{' '}
+                        <a
+                            href="https://quickrecall.vercel.app/articles/web-components-enterprise-design-systems"
+                            className="underline underline-offset-4 hover:text-foreground"
+                            target="_blank"
+                            rel="noreferrer"
+                        >
+                            Web Components in Enterprise Applications
+                        </a>
+                        .
                     </p>
                 </div>
                 <Button type="button" onClick={openModal}>
