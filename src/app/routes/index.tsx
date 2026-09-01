@@ -5,6 +5,7 @@ import AnimeChan from '@/features/animechan'
 import Imgflip from '@/features/imgflip'
 import TanstackHighlight from '@/features/tanstack-highlight'
 import WebComponents from '@/features/web-components'
+import DynamicFormPage from '@/features/dynamic-form'
 import { animeChanLoader } from '@/features/animechan/loader'
 import { imgflipLoader } from '@/features/imgflip/loader'
 import { webComponentsLoader } from '@/features/web-components/loader'
@@ -40,6 +41,10 @@ const routes = [
                 path: '/web-components',
                 element: <WebComponents />,
                 loader: webComponentsLoader(queryClient),
+            },
+            {
+                path: '/dynamic-form',
+                element: <DynamicFormPage />,
             },
         ],
     },

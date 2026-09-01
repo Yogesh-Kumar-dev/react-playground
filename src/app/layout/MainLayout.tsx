@@ -18,7 +18,7 @@ import {
     SidebarTrigger,
 } from '@/components/ui/sidebar'
 import { Separator } from '@/components/ui/separator'
-import { BookOpenText, Code, House, Image, Puzzle } from 'lucide-react'
+import { BookOpenText, Code, House, Image, Puzzle, TextCursorInput } from 'lucide-react'
 
 const navItems = [
     { to: '/', label: 'Home', icon: House },
@@ -26,6 +26,8 @@ const navItems = [
     { to: '/imgflip', label: 'Imgflip', icon: Image },
     { to: '/tanstack-highlight', label: 'Tanstack Highlight', icon: Code },
     { to: '/web-components', label: 'Web Components', icon: Puzzle },
+    { to: '/dynamic-form', label: 'Dynamic Form', icon: TextCursorInput },
+    { to: '/form-builder', label: 'Form Builder', icon: Image },
     // { to: '/', label: 'Charts', icon: Image },
     // { to: '/', label: 'File upload', icon: Image },
     // { to: '/', label: 'WYSIWYG', icon: Image },
