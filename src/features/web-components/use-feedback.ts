@@ -9,8 +9,8 @@ import { feedbackAPI } from '@/features/web-components/api'
 import { queryKeys } from '@/features/web-components/query-keys'
 import { feedbackListQuery } from '@/features/web-components/query-options'
 
-export const FEEDBACK_SOURCE = 'react-playground'
-export const FEEDBACK_CONTEXT = 'web-components-route'
+const FEEDBACK_SOURCE = 'react-playground'
+const FEEDBACK_CONTEXT = 'web-components-route'
 
 export function useFeedback() {
     const modalRef = useRef<FeedbackModalElement>(null)

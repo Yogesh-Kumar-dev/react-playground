@@ -46,7 +46,7 @@ const animeInfoSchema = z.object({
     episodeCount: z.number().nullable(),
     summary: z.string(),
 })
-export type AnimeInfo = z.infer<typeof animeInfoSchema>
+type AnimeInfo = z.infer<typeof animeInfoSchema>
 
 const animeListMetaSchema = z.object({
     total: z.number(),
@@ -54,7 +54,7 @@ const animeListMetaSchema = z.object({
     pageSize: z.number(),
     totalPages: z.number(),
 })
-export type AnimeListMeta = z.infer<typeof animeListMetaSchema>
+type AnimeListMeta = z.infer<typeof animeListMetaSchema>
 
 // The API wraps every successful response in a { status, data } envelope;
 // list endpoints additionally return a sibling `meta` object.

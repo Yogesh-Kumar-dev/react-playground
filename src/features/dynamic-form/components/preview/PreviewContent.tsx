@@ -1,8 +1,9 @@
 import { useState, useMemo, useEffect, useContext } from 'react'
 import { useFormContext } from 'react-hook-form'
 import { highlighter } from '@/features/tanstack-highlight/highlighter'
+import { evaluateCondition } from '../../validation'
 import { SchemaContext } from './SchemaContext'
-import type { FormSchema } from '../../schema'
+import type { FormSchema, FieldOrGroup, ConditionalRule } from '../../schema'
 
 const STEP_COLORS = [
     '#38bdf8',
@@ -10,18 +11,34 @@ const STEP_COLORS = [
     '#fbbf24',
 ]
 
+function isVisible(item: FieldOrGroup, values: Record<string, unknown>): boolean {
+    if ('kind' in item) return true
+    const field = item as FieldOrGroup & { conditional?: ConditionalRule }
+    if (!field.conditional) return true
+    const fieldValue = values[field.conditional.field]
+    return evaluateCondition(field.conditional.operator, fieldValue, field.conditional.value)
+}
+
+function getVisibleFieldNames(schema: FormSchema, values: Record<string, unknown>): Set<string> {
+    const names = new Set<string>()
+    forEachField(schema, (item) => {
+        if (isVisible(item, values)) names.add(item.name)
+    })
+    return names
+}
+
+function forEachField(schema: FormSchema, fn: (item: FieldOrGroup, stepIdx: number) => void) {
+    schema.steps.forEach((step, stepIdx) => {
+        for (const item of step.fields) fn(item, stepIdx)
+    })
+}
+
 function buildFieldStepMap(schema: FormSchema): Map<string, number> {
     const map = new Map<string, number>()
-    schema.steps.forEach((step, stepIdx) => {
-        for (const item of step.fields) {
-            if ('kind' in item && item.kind === 'repeatable') {
-                map.set(item.name, stepIdx)
-                for (const f of item.fields) {
-                    map.set(f.name, stepIdx)
-                }
-            } else if ('name' in item) {
-                map.set(item.name, stepIdx)
-            }
+    forEachField(schema, (item, stepIdx) => {
+        map.set(item.name, stepIdx)
+        if ('kind' in item) {
+            for (const f of item.fields) map.set(f.name, stepIdx)
         }
     })
     return map
@@ -45,7 +62,11 @@ export function PreviewContent() {
     )
 
     const formatted = useMemo(() => {
-        return JSON.stringify(values, (_key, value) => {
+        const visibleFields = schema ? getVisibleFieldNames(schema, values) : new Set<string>()
+        const filtered = Object.fromEntries(
+            Object.entries(values).filter(([key]) => visibleFields.has(key))
+        )
+        return JSON.stringify(filtered, (_key, value) => {
             if (value instanceof File) {
                 return { name: value.name, size: value.size, type: value.type }
             }
@@ -54,7 +75,7 @@ export function PreviewContent() {
             }
             return value
         }, 2)
-    }, [values])
+    }, [values, schema])
 
     const tokens = useMemo(() => {
         return highlighter.highlight(formatted, { lang: 'json' }).tokens

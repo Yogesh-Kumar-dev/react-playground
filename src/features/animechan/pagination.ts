@@ -4,8 +4,8 @@
 // one place so the route loader and the component always derive the same cache
 // key for the same URL.
 export const VIEW_SIZE = 10
-export const API_PAGE_SIZE = 100
-export const VIEWS_PER_API_PAGE = API_PAGE_SIZE / VIEW_SIZE
+const API_PAGE_SIZE = 100
+const VIEWS_PER_API_PAGE = API_PAGE_SIZE / VIEW_SIZE
 
 /** Which API page (100/page) contains the given 10-per-view page. */
 export function apiPageForViewPage(viewPage: number): number {
