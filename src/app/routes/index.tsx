@@ -6,6 +6,7 @@ import Imgflip from '@/features/imgflip'
 import TanstackHighlight from '@/features/tanstack-highlight'
 import WebComponents from '@/features/web-components'
 import DynamicFormPage from '@/features/dynamic-form'
+import Charts from '@/features/charts'
 import { animeChanLoader } from '@/features/animechan/loader'
 import { imgflipLoader } from '@/features/imgflip/loader'
 import { webComponentsLoader } from '@/features/web-components/loader'
@@ -45,6 +46,10 @@ const routes = [
             {
                 path: '/dynamic-form',
                 element: <DynamicFormPage />,
+            },
+            {
+                path: '/charts',
+                element: <Charts />,
             },
         ],
     },

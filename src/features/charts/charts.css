@@ -1,0 +1,61 @@
+/* ---------------------------------------------------------------------------
+ * MUI X Charts theming (charts feature)
+ *
+ * The charts read their text colors from MUI's default theme (this app has no
+ * MUI ThemeProvider), which is light — near-black labels on the dark shadcn
+ * surface are unreadable. Map chart text to shadcn tokens. `!important` is
+ * required for SVG text because MUI sets fills via inline styles.
+ *
+ * Imported by src/features/charts/index.tsx so the styles live and die with
+ * the feature. Selectors stay global because MUI renders tooltips in a portal.
+ * ------------------------------------------------------------------------- */
+.dark .MuiChartsLegend-label {
+  color: var(--foreground) !important;
+}
+
+.dark .MuiChartsAxis-tickLabel {
+  fill: var(--muted-foreground) !important;
+}
+
+/* The tick-label slot may not forward its utility class to the <text>, so
+   also target the tick container group, which always carries its class. */
+.dark .MuiChartsAxis-tickContainer text {
+  fill: var(--muted-foreground) !important;
+}
+
+.dark .MuiChartsAxis-label text {
+  fill: var(--muted-foreground) !important;
+}
+
+.dark .MuiRadarChart-axisLabel {
+  fill: var(--foreground) !important;
+}
+
+.dark .MuiGauge-valueText {
+  fill: var(--foreground) !important;
+}
+
+.dark .MuiChartsGrid-line {
+  stroke: var(--border);
+}
+
+.dark .MuiChartsTooltip-paper {
+  background-color: var(--popover);
+  color: var(--popover-foreground);
+  border: 1px solid var(--border);
+}
+
+/* Tooltip arrow points at the chart — fill must match the paper background. */
+.dark .MuiChartsTooltip-arrow {
+  color: var(--popover);
+}
+
+/* Tooltip cells set their own palette colors via emotion (injected after the
+   app stylesheet, so ties go to emotion) — force the popover foreground for
+   the label/value cells, the axis-value cell, and the series caption. */
+.dark .MuiChartsTooltip-paper .MuiChartsTooltip-cell,
+.dark .MuiChartsTooltip-paper .MuiChartsTooltip-valueCell,
+.dark .MuiChartsTooltip-paper .MuiChartsTooltip-axisValueCell,
+.dark .MuiChartsTooltip-paper caption {
+  color: var(--popover-foreground) !important;
+}
