@@ -1,11 +1,15 @@
 import { themeCss } from '@/features/tanstack-highlight/theme'
+import { lazy, Suspense } from 'react'
 import { FormProvider } from 'react-hook-form'
 import { useMultiStepForm } from '../hooks/useMultiStepForm'
 import type { FormSchema } from '../schema'
-import { PreviewPanel } from './preview/PreviewPanel'
 import { SchemaContext } from './preview/SchemaContext'
 import { FormBody } from './steps/FormBody'
 import { SubmissionSuccess } from './steps/SubmissionSuccess'
+
+const PreviewPanel = lazy(() =>
+    import('./preview/PreviewPanel').then((m) => ({ default: m.PreviewPanel }))
+)
 
 interface DynamicFormProps {
     schema: FormSchema
@@ -59,7 +63,9 @@ export function DynamicForm({ schema, showPreview = true }: Readonly<DynamicForm
 
                         {showPreview && (
                             <div className="hidden lg:block">
-                                <PreviewPanel />
+                                <Suspense fallback={null}>
+                                    <PreviewPanel />
+                                </Suspense>
                             </div>
                         )}
                     </div>

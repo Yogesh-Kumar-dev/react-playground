@@ -1,28 +1,91 @@
-'use client'
-
-import './charts.css'
-import { useState } from 'react'
-import BarChartSection from '@/features/charts/components/BarChartSection'
-import CandlestickSection from '@/features/charts/components/CandlestickSection'
-import FunnelSection from '@/features/charts/components/FunnelSection'
-import GaugeSection from '@/features/charts/components/GaugeSection'
-import HeatmapSection from '@/features/charts/components/HeatmapSection'
-import LineChartSection from '@/features/charts/components/LineChartSection'
-import PieChartSection from '@/features/charts/components/PieChartSection'
-import RadarChartSection from '@/features/charts/components/RadarChartSection'
-import RadialBarSection from '@/features/charts/components/RadialBarSection'
-import RadialLineSection from '@/features/charts/components/RadialLineSection'
-import SankeySection from '@/features/charts/components/SankeySection'
-import ScatterChartSection from '@/features/charts/components/ScatterChartSection'
-import SparklineSection from '@/features/charts/components/SparklineSection'
 import type { Customer } from '@/features/charts/components/ScatterChartSection'
+import { lazy, useState, type ReactNode, type SyntheticEvent } from 'react'
+import './charts.css'
+import { ChartAccordion } from './components/ChartAccordian'
+const BarChartSection = lazy(() => import('@/features/charts/components/BarChartSection'))
+const GaugeSection = lazy(() => import('@/features/charts/components/GaugeSection'))
+const LineChartSection = lazy(() => import('@/features/charts/components/LineChartSection'))
+const PieChartSection = lazy(() => import('@/features/charts/components/PieChartSection'))
+const RadarChartSection = lazy(() => import('@/features/charts/components/RadarChartSection'))
+const ScatterChartSection = lazy(() => import('@/features/charts/components/ScatterChartSection'))
+const SparklineSection = lazy(() => import('@/features/charts/components/SparklineSection'))
+
+const CandlestickSection = lazy(() => import('@/features/charts/components/CandlestickSection'))
+const FunnelSection = lazy(() => import('@/features/charts/components/FunnelSection'))
+const HeatmapSection = lazy(() => import('@/features/charts/components/HeatmapSection'))
+const RadialBarSection = lazy(() => import('@/features/charts/components/RadialBarSection'))
+const RadialLineSection = lazy(() => import('@/features/charts/components/RadialLineSection'))
+const SankeySection = lazy(() => import('@/features/charts/components/SankeySection'))
+
+const panels = [
+    'bar',
+    'line',
+    'pie',
+    'scatter',
+    'radar',
+    'sparkline',
+    'gauge',
+    'heatmap',
+    'funnel',
+    'sankey',
+    'candlestick',
+    'radial-bar',
+    'radial-line',
+] as const
+export type PanelId = (typeof panels)[number]
 
 export default function Charts() {
-    // Shared cross-chart state: the scatter section writes it (point click),
-    // the bar section reads it (dimming). One page-level useState.
-    const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(
-        null
-    )
+
+    const [selectedCustomer, setSelectedCustomer] = useState<Customer | null>(null)
+
+    const [expanded, setExpanded] = useState<PanelId | false>(false)
+    const handleChange =
+        (panel: PanelId) => (_event: SyntheticEvent, isExpanded: boolean) => {
+            setExpanded(isExpanded ? panel : false)
+        }
+
+    const chartPanels: { panel: PanelId; title: string; render: () => ReactNode }[] = [
+        {
+            panel: 'bar',
+            title: 'Bar',
+            render: () => (
+                <BarChartSection dimmedSegment={selectedCustomer?.segment ?? null} />
+            ),
+        },
+        { panel: 'line', title: 'Line', render: () => <LineChartSection /> },
+        { panel: 'pie', title: 'Pie', render: () => <PieChartSection /> },
+        {
+            panel: 'scatter',
+            title: 'Scatter',
+            render: () => (
+                <ScatterChartSection
+                    selectedCustomer={selectedCustomer}
+                    onSelectCustomer={setSelectedCustomer}
+                />
+            ),
+        },
+        { panel: 'radar', title: 'Radar', render: () => <RadarChartSection /> },
+        { panel: 'sparkline', title: 'Sparkline', render: () => <SparklineSection /> },
+        { panel: 'gauge', title: 'Gauge', render: () => <GaugeSection /> },
+        { panel: 'heatmap', title: 'Heatmap (Premium)', render: () => <HeatmapSection /> },
+        { panel: 'funnel', title: 'Funnel (Premium)', render: () => <FunnelSection /> },
+        { panel: 'sankey', title: 'Sankey (Premium)', render: () => <SankeySection /> },
+        {
+            panel: 'candlestick',
+            title: 'Candlestick (Premium)',
+            render: () => <CandlestickSection />,
+        },
+        {
+            panel: 'radial-bar',
+            title: 'Radial Bar (Premium)',
+            render: () => <RadialBarSection />,
+        },
+        {
+            panel: 'radial-line',
+            title: 'Radial Line (Premium)',
+            render: () => <RadialLineSection />,
+        },
+    ]
 
     return (
         <div className="space-y-6 p-6">
@@ -36,22 +99,18 @@ export default function Charts() {
                 </p>
             </div>
 
-            <BarChartSection dimmedSegment={selectedCustomer?.segment ?? null} />
-            <LineChartSection />
-            <PieChartSection />
-            <ScatterChartSection
-                selectedCustomer={selectedCustomer}
-                onSelectCustomer={setSelectedCustomer}
-            />
-            <RadarChartSection />
-            <SparklineSection />
-            <GaugeSection />
-            <HeatmapSection />
-            <FunnelSection />
-            <SankeySection />
-            <CandlestickSection />
-            <RadialBarSection />
-            <RadialLineSection />
+            {chartPanels.map(({ panel, title, render }) => (
+                <ChartAccordion
+                    key={panel}
+                    panel={panel}
+                    title={title}
+                    expanded={expanded}
+                    onChange={handleChange}
+                >
+                    {render()}
+                </ChartAccordion>
+            ))}
         </div>
     )
 }
+

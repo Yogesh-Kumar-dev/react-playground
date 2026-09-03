@@ -1,15 +1,6 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import MainLayout from '@/app/layout/MainLayout'
 import HomePage from '@/app/pages/HomePage'
-import AnimeChan from '@/features/animechan'
-import Imgflip from '@/features/imgflip'
-import TanstackHighlight from '@/features/tanstack-highlight'
-import WebComponents from '@/features/web-components'
-import DynamicFormPage from '@/features/dynamic-form'
-import Charts from '@/features/charts'
-import { animeChanLoader } from '@/features/animechan/loader'
-import { imgflipLoader } from '@/features/imgflip/loader'
-import { webComponentsLoader } from '@/features/web-components/loader'
 import { queryClient } from '@/lib/query-client'
 
 // Define routes
@@ -26,30 +17,45 @@ const routes = [
             },
             {
                 path: '/animechan',
-                element: <AnimeChan />,
-                loader: animeChanLoader(queryClient),
+                lazy: async () => {
+                    const [{ default: Component }, { animeChanLoader }] = await Promise.all([
+                        import('@/features/animechan'),
+                        import('@/features/animechan/loader'),
+                    ])
+                    return { Component, loader: animeChanLoader(queryClient) }
+                },
             },
             {
                 path: '/imgflip',
-                element: <Imgflip />,
-                loader: imgflipLoader(queryClient),
+                lazy: async () => {
+                    const [{ default: Component }, { imgflipLoader }] = await Promise.all([
+                        import('@/features/imgflip'),
+                        import('@/features/imgflip/loader'),
+                    ])
+                    return { Component, loader: imgflipLoader(queryClient) }
+                },
             },
             {
                 path: '/tanstack-highlight',
-                element: <TanstackHighlight />,
+                lazy: () => import('@/features/tanstack-highlight').then((m) => ({ Component: m.default })),
             },
             {
                 path: '/web-components',
-                element: <WebComponents />,
-                loader: webComponentsLoader(queryClient),
+                lazy: async () => {
+                    const [{ default: Component }, { webComponentsLoader }] = await Promise.all([
+                        import('@/features/web-components'),
+                        import('@/features/web-components/loader'),
+                    ])
+                    return { Component, loader: webComponentsLoader(queryClient) }
+                },
             },
             {
                 path: '/dynamic-form',
-                element: <DynamicFormPage />,
+                lazy: () => import('@/features/dynamic-form').then((m) => ({ Component: m.default })),
             },
             {
                 path: '/charts',
-                element: <Charts />,
+                lazy: () => import('@/features/charts').then((m) => ({ Component: m.default })),
             },
         ],
     },
