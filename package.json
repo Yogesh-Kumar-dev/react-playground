@@ -6,7 +6,10 @@
   "scripts": {
     "dev": "vite",
     "dev:portless": "portless run vite",
-    "build": "tsc -b && vite build",
+    "start-staging": "vite --mode staging",
+    "start-prod": "vite --mode production",
+    "build:staging": "tsc -b && vite build --mode staging",
+    "build": "tsc -b && vite build --mode production",
     "lint": "eslint .",
     "preview": "vite preview"
   },

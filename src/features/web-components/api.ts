@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 import { z } from 'zod'
 import type { FeedbackSubmitDetail } from 'reusable-lit-web-components'
 
-const API_BASE_URL = 'https://yogesh-kumar-portfolio-v2.vercel.app'
+const API_BASE_URL = import.meta.env.VITE_PORTFOLIO_API as string
 
 const client = axios.create({
     baseURL: API_BASE_URL,

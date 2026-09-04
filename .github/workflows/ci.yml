@@ -34,6 +34,10 @@ jobs:
       - run: pnpm lint
 
       - run: pnpm build
+        env:
+          VITE_ANIMECHAN_API: ${{ vars.VITE_ANIMECHAN_API }}
+          VITE_IMGFLIP_API: ${{ vars.VITE_IMGFLIP_API }}
+          VITE_PORTFOLIO_API: ${{ vars.VITE_PORTFOLIO_API }}
 
       - run: cp dist/index.html dist/404.html
 

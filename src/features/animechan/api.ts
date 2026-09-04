@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 import { z } from 'zod'
 
 // AnimeChan API base URL
-const API_BASE_URL = 'https://api.animechan.io/v1'
+const API_BASE_URL = import.meta.env.VITE_ANIMECHAN_API as string
 
 // Create axios instance
 const apiClient = axios.create({

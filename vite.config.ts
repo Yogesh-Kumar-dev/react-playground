@@ -12,9 +12,9 @@ export default defineConfig({
   // GitHub Pages project site: https://<user>.github.io/react-playground/
   base: '/react-playground/',
   plugins: [
+    xrayPlugin({ bundler: 'vite' }),
     react(),
     tailwindcss(),
-    xrayPlugin({ bundler: 'vite' }),
     babel({ presets: [reactCompilerPreset()] })
   ],
   resolve: {

@@ -2,7 +2,7 @@ import axios, { AxiosError } from 'axios'
 import { z } from 'zod'
 
 // Imgflip Meme API base URL
-const API_BASE_URL = 'https://api.imgflip.com'
+const API_BASE_URL = import.meta.env.VITE_IMGFLIP_API as string
 
 // Create axios instance (separate from other features)
 const imgflipClient = axios.create({
