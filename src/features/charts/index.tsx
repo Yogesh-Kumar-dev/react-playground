@@ -17,22 +17,20 @@ const RadialBarSection = lazy(() => import('@/features/charts/components/RadialB
 const RadialLineSection = lazy(() => import('@/features/charts/components/RadialLineSection'))
 const SankeySection = lazy(() => import('@/features/charts/components/SankeySection'))
 
-const panels = [
-    'bar',
-    'line',
-    'pie',
-    'scatter',
-    'radar',
-    'sparkline',
-    'gauge',
-    'heatmap',
-    'funnel',
-    'sankey',
-    'candlestick',
-    'radial-bar',
-    'radial-line',
-] as const
-export type PanelId = (typeof panels)[number]
+export type PanelId =
+    | 'bar'
+    | 'line'
+    | 'pie'
+    | 'scatter'
+    | 'radar'
+    | 'sparkline'
+    | 'gauge'
+    | 'heatmap'
+    | 'funnel'
+    | 'sankey'
+    | 'candlestick'
+    | 'radial-bar'
+    | 'radial-line'
 
 export default function Charts() {
 
