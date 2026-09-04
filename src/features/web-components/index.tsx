@@ -1,5 +1,3 @@
-'use client'
-
 import { Button } from '@/components/ui/button'
 import FeedbackList from '@/features/web-components/components/FeedbackList'
 import { FeedbackModal } from '@/features/web-components/components/feedback-elements'
@@ -34,8 +32,7 @@ export default function WebComponents() {
                             rel="noreferrer"
                         >
                             this Lit collection
-                        </a>
-                        . Instead of shadcn, Lit web components
+                        </a>. Instead of shadcn, Lit web components
                         (<code>feedback-modal</code> and{' '}
                         <code>feedback-card</code>) are used for the
                         presentational UI. The write-up for this setup is{' '}
@@ -46,8 +43,7 @@ export default function WebComponents() {
                             rel="noreferrer"
                         >
                             Web Components in Enterprise Applications
-                        </a>
-                        .
+                        </a>.
                     </p>
                 </div>
                 <Button type="button" onClick={openModal}>

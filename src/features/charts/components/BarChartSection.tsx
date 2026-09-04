@@ -1,8 +1,4 @@
-'use client'
 
-import { faker } from '@faker-js/faker'
-import { useState } from 'react'
-import { BarChart } from '@mui/x-charts/BarChart'
 import { Button } from '@/components/ui/button'
 import { Checkbox } from '@/components/ui/checkbox'
 import { Switch } from '@/components/ui/switch'
@@ -14,6 +10,9 @@ import {
     withAlpha,
     type Segment,
 } from '@/features/charts/shared'
+import { faker } from '@faker-js/faker'
+import { BarChart } from '@mui/x-charts/BarChart'
+import { useState } from 'react'
 
 // ---------------------------------------------------------------------------
 // Data — monthly revenue per customer segment
@@ -40,7 +39,7 @@ type Visibility = Record<Segment, boolean>
 
 export default function BarChartSection({
     dimmedSegment = null,
-}: BarChartSectionProps) {
+}: Readonly<BarChartSectionProps>) {
     const [revenues, setRevenues] = useState(() => generateSegmentRevenues())
     const [visible, setVisible] = useState<Visibility>({
         Enterprise: true,

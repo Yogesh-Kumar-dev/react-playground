@@ -1,7 +1,4 @@
-'use client'
-
-import { useLocation, NavLink, Outlet } from 'react-router-dom'
-import { NuqsAdapter } from 'nuqs/adapters/react-router/v7'
+import { Separator } from '@/components/ui/separator'
 import {
     Sidebar,
     SidebarContent,
@@ -17,8 +14,9 @@ import {
     SidebarRail,
     SidebarTrigger,
 } from '@/components/ui/sidebar'
-import { Separator } from '@/components/ui/separator'
-import { BookOpenText, ChartColumnBig, Code, House, Image, Puzzle, TextCursorInput } from 'lucide-react'
+import { BookOpenText, ChartColumnBig, Code, FolderTree, House, Image, Puzzle, TextCursorInput } from 'lucide-react'
+import { NuqsAdapter } from 'nuqs/adapters/react-router/v7'
+import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
 const navItems = [
     { to: '/', label: 'Home', icon: House },
@@ -29,6 +27,9 @@ const navItems = [
     { to: '/dynamic-form', label: 'Dynamic Form', icon: TextCursorInput },
     { to: '/charts', label: 'Charts', icon: ChartColumnBig },
 
+    { to: '/tree-view', label: 'Tree View', icon: FolderTree },
+    { to: '/data-grid', label: 'Data Grid Pro', icon: Image },
+    { to: '/ag-grid', label: 'AG Grid', icon: Image },
     // { to: '/', label: 'File upload', icon: Image },
     // { to: '/', label: 'WYSIWYG', icon: Image },
     // { to: '/', label: 'Email Editor', icon: Image },

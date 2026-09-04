@@ -1,12 +1,10 @@
-'use client'
-
-import { faker } from '@faker-js/faker'
-import { useMemo, useState } from 'react'
-import { Heatmap } from '@mui/x-charts-premium/Heatmap'
 import { Button } from '@/components/ui/button'
 import { Slider } from '@/components/ui/slider'
 import ChartSection from '@/features/charts/components/ChartSection'
 import { HEATMAP_SLOTS } from '@/features/charts/shared'
+import { faker } from '@faker-js/faker'
+import { Heatmap } from '@mui/x-charts-premium/Heatmap'
+import { useMemo, useState } from 'react'
 
 // ---------------------------------------------------------------------------
 // Data — support requests by weekday and time slot
@@ -22,7 +20,10 @@ function generateHeatmapData(): HeatmapValue[] {
         for (let x = 0; x < HEATMAP_SLOTS.length; x += 1) {
             const weekday = y < 5
             const businessHours = x >= 4 && x <= 8
-            const base = weekday ? (businessHours ? 70 : 25) : 12
+            let base = 12
+            if (weekday) {
+                base = businessHours ? 70 : 25
+            }
             data.push([
                 x,
                 y,

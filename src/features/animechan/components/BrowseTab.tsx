@@ -1,7 +1,4 @@
-'use client'
-
-import { useState } from 'react'
-import { parseAsInteger, useQueryState } from 'nuqs'
+import { Button } from '@/components/ui/button'
 import {
     Card,
     CardContent,
@@ -10,18 +7,19 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Skeleton } from '@/components/ui/skeleton'
-import { useDebouncedValue } from '@/hooks/use-debounced-value'
-import { useQuery } from '@tanstack/react-query'
 import {
     VIEW_SIZE,
     apiPageForViewPage,
     viewStartIndex,
 } from '@/features/animechan/pagination'
 import { animeListQuery } from '@/features/animechan/query-options'
+import { useDebouncedValue } from '@/hooks/use-debounced-value'
 import { cn } from '@/lib/utils'
+import { useQuery } from '@tanstack/react-query'
+import { parseAsInteger, useQueryState } from 'nuqs'
+import { useState, type ReactNode } from 'react'
 import AnimeDetail from './AnimeDetail'
 
 export default function BrowseTab() {
@@ -57,6 +55,73 @@ export default function BrowseTab() {
     const selectedAnime =
         listQuery.data?.animes.find((a) => a.id === selectedId) ?? null
 
+    let detailContent: ReactNode
+    if (listQuery.isPending) {
+        detailContent = (
+            <div className="space-y-2">
+                {Array.from({ length: 5 }).map((_, i) => (
+                    <Skeleton key={i} className="h-14 w-full" />
+                ))}
+            </div>
+        )
+    } else if (listQuery.isError) {
+        detailContent = (
+            <p className="text-sm text-destructive">
+                {(listQuery.error as Error).message}
+            </p>
+        )
+    } else if (animes.length === 0) {
+        detailContent = (
+            <p className="py-8 text-center text-sm text-muted-foreground">
+                No anime match your search.
+            </p>
+        )
+    } else {
+        detailContent = (
+            <ul className="space-y-2">
+                {animes.map((anime) => {
+                    const selected = anime.id === selectedId
+                    return (
+                        <li key={anime.id}>
+                            <button
+                                type="button"
+                                onClick={() => setSelectedId(anime.id)}
+                                className={cn(
+                                    'flex w-full items-center justify-between gap-3 rounded-lg border p-3 text-left transition-colors',
+                                    selected
+                                        ? 'border-ring bg-muted/70'
+                                        : 'border-border hover:bg-muted/50'
+                                )}
+                            >
+                                <span className="min-w-0">
+                                    <span className="block truncate text-sm font-medium">
+                                        {anime.name}
+                                    </span>
+                                    {anime.altName &&
+                                        anime.altName !==
+                                            anime.name && (
+                                            <span className="block truncate text-xs text-muted-foreground">
+                                                {anime.altName}
+                                            </span>
+                                        )}
+                                </span>
+                                <span className="flex shrink-0 items-center gap-3 text-xs text-muted-foreground">
+                                    <span>
+                                        {anime.episodeCount ?? '?'}{' '}
+                                        eps
+                                    </span>
+                                    <span>
+                                        {anime.quoteCount} quotes
+                                    </span>
+                                </span>
+                            </button>
+                        </li>
+                    )
+                })}
+            </ul>
+        )
+    }
+
     return (
         <div className="grid gap-6 lg:grid-cols-2">
             <Card>
@@ -79,67 +144,7 @@ export default function BrowseTab() {
                     </div>
                 </CardHeader>
 
-                <CardContent>
-                    {listQuery.isPending ? (
-                        <div className="space-y-2">
-                            {Array.from({ length: 5 }).map((_, i) => (
-                                <Skeleton key={i} className="h-14 w-full" />
-                            ))}
-                        </div>
-                    ) : listQuery.isError ? (
-                        <p className="text-sm text-destructive">
-                            {(listQuery.error as Error).message}
-                        </p>
-                    ) : animes.length === 0 ? (
-                        <p className="py-8 text-center text-sm text-muted-foreground">
-                            No anime match your search.
-                        </p>
-                    ) : (
-                        <ul className="space-y-2">
-                            {animes.map((anime) => {
-                                const selected = anime.id === selectedId
-                                return (
-                                    <li key={anime.id}>
-                                        <button
-                                            type="button"
-                                            onClick={() =>
-                                                setSelectedId(anime.id)
-                                            }
-                                            className={cn(
-                                                'flex w-full items-center justify-between gap-3 rounded-lg border p-3 text-left transition-colors',
-                                                selected
-                                                    ? 'border-ring bg-muted/70'
-                                                    : 'border-border hover:bg-muted/50'
-                                            )}
-                                        >
-                                            <span className="min-w-0">
-                                                <span className="block truncate text-sm font-medium">
-                                                    {anime.name}
-                                                </span>
-                                                {anime.altName &&
-                                                    anime.altName !==
-                                                        anime.name && (
-                                                        <span className="block truncate text-xs text-muted-foreground">
-                                                            {anime.altName}
-                                                        </span>
-                                                    )}
-                                            </span>
-                                            <span className="flex shrink-0 items-center gap-3 text-xs text-muted-foreground">
-                                                <span>
-                                                    {anime.episodeCount ?? '?'}{' '}
-                                                    eps
-                                                </span>
-                                                <span>
-                                                    {anime.quoteCount} quotes
-                                                </span>
-                                            </span>
-                                        </button>
-                                    </li>
-                                )
-                            })}
-                        </ul>
-                    )}
-                </CardContent>
+                <CardContent>{detailContent}</CardContent>
 
                 <CardFooter>
                     <div className="flex w-full items-center justify-between gap-2">

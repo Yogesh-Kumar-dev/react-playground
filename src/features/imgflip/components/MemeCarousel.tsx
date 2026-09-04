@@ -1,15 +1,13 @@
-'use client'
-
-import { useEffect, useState } from 'react'
-import { Swiper, SwiperSlide } from 'swiper/react'
-import { Keyboard, Virtual } from 'swiper/modules'
-import type { Swiper as SwiperClass } from 'swiper/types'
-import { ChevronLeft, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import type { Meme } from '@/features/imgflip/api'
+import { ChevronLeft, ChevronRight } from 'lucide-react'
+import { useEffect, useState } from 'react'
 import 'swiper/css'
 import 'swiper/css/keyboard'
 import 'swiper/css/virtual'
+import { Keyboard, Virtual } from 'swiper/modules'
+import { Swiper, SwiperSlide } from 'swiper/react'
+import type { Swiper as SwiperClass } from 'swiper/types'
 
 // How many memes to show per view. Currently one at a time; bumping this to
 // 4 or 6 (optionally via breakpoints) is a one-line change.
@@ -27,7 +25,7 @@ export default function MemeCarousel({
     memes,
     index,
     onIndexChange,
-}: MemeCarouselProps) {
+}: Readonly<MemeCarouselProps>) {
     const [swiper, setSwiper] = useState<SwiperClass | null>(null)
 
     // Reflect external index changes (browser back/forward, direct URL).
@@ -56,7 +54,7 @@ export default function MemeCarousel({
                     {memes.map((meme) => (
                         <SwiperSlide
                             key={meme.id}
-                            className="!flex items-center justify-center"
+                            className="flex! items-center justify-center"
                         >
                             <img
                                 src={meme.url}

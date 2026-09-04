@@ -1,10 +1,8 @@
-'use client'
-
-import { faker } from '@faker-js/faker'
-import { useState } from 'react'
-import { FunnelChart } from '@mui/x-charts-premium/FunnelChart'
 import { Button } from '@/components/ui/button'
 import ChartSection from '@/features/charts/components/ChartSection'
+import { faker } from '@faker-js/faker'
+import { FunnelChart } from '@mui/x-charts-premium/FunnelChart'
+import { useState } from 'react'
 
 // ---------------------------------------------------------------------------
 // Data — signup conversion funnel

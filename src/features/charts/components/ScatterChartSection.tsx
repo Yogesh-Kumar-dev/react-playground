@@ -1,9 +1,3 @@
-'use client'
-
-import { faker } from '@faker-js/faker'
-import { useMemo, useState } from 'react'
-import { ScatterChart } from '@mui/x-charts/ScatterChart'
-import type { ChartsActivationEvent, ScatterItemIdentifier } from '@mui/x-charts/models'
 import { Button } from '@/components/ui/button'
 import ChartSection from '@/features/charts/components/ChartSection'
 import {
@@ -11,6 +5,10 @@ import {
     SEGMENT_COLORS,
     withAlpha,
 } from '@/features/charts/shared'
+import { faker } from '@faker-js/faker'
+import { ScatterChart } from '@mui/x-charts/ScatterChart'
+import type { ChartsActivationEvent, ScatterItemIdentifier } from '@mui/x-charts/models'
+import { useMemo, useState } from 'react'
 
 // ---------------------------------------------------------------------------
 // Data — customers clustered by segment (spend vs. engagement)
@@ -75,7 +73,7 @@ interface ScatterChartSectionProps {
 export default function ScatterChartSection({
     selectedCustomer,
     onSelectCustomer,
-}: ScatterChartSectionProps) {
+}: Readonly<ScatterChartSectionProps>) {
     const [customers, setCustomers] = useState<Customer[]>(() =>
         generateCustomers()
     )

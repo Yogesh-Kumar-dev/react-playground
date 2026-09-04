@@ -1,11 +1,9 @@
-'use client'
-
-import { faker } from '@faker-js/faker'
-import { useState } from 'react'
-import { RadialBarChart } from '@mui/x-charts-premium/RadialBarChart'
 import { Button } from '@/components/ui/button'
 import ChartSection from '@/features/charts/components/ChartSection'
 import { MONTH_LABELS } from '@/features/charts/shared'
+import { faker } from '@faker-js/faker'
+import { RadialBarChart } from '@mui/x-charts-premium/RadialBarChart'
+import { useState } from 'react'
 
 // ---------------------------------------------------------------------------
 // Data — dataset rows bound via dataKey

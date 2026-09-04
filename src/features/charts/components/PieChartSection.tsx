@@ -1,11 +1,9 @@
-'use client'
-
-import { faker } from '@faker-js/faker'
-import { useCallback, useState } from 'react'
-import { PieChart } from '@mui/x-charts/PieChart'
-import { useLegend } from '@mui/x-charts/hooks'
 import { Button } from '@/components/ui/button'
 import ChartSection from '@/features/charts/components/ChartSection'
+import { faker } from '@faker-js/faker'
+import { PieChart } from '@mui/x-charts/PieChart'
+import { useLegend } from '@mui/x-charts/hooks'
+import { useCallback, useState } from 'react'
 
 // ---------------------------------------------------------------------------
 // Data — traffic sources
@@ -38,7 +36,7 @@ function generateTrafficSlices(): TrafficSlice[] {
 // Component
 // ---------------------------------------------------------------------------
 
-function PieLegend({ selectedId }: { selectedId: string | null }) {
+function PieLegend({ selectedId }: Readonly<{ selectedId: string | null }>) {
     const { items } = useLegend()
 
     return (

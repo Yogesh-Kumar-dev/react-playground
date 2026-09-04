@@ -1,9 +1,7 @@
-'use client'
-
-import { useState } from 'react'
-import type { HighlightedCodeBlockProps } from '@tanstack/highlight/react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import type { HighlightedCodeBlockProps } from '@tanstack/highlight/react'
+import { useState } from 'react'
 
 export function CodeBlock({
   className,

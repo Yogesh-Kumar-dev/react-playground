@@ -1,11 +1,9 @@
-'use client'
-
-import { faker } from '@faker-js/faker'
-import { useState } from 'react'
-import type { OHLCValueType } from '@mui/x-charts-premium/models'
-import { CandlestickChart } from '@mui/x-charts-premium/CandlestickChart'
 import { Button } from '@/components/ui/button'
 import ChartSection from '@/features/charts/components/ChartSection'
+import { faker } from '@faker-js/faker'
+import { CandlestickChart } from '@mui/x-charts-premium/CandlestickChart'
+import type { OHLCValueType } from '@mui/x-charts-premium/models'
+import { useState } from 'react'
 
 // ---------------------------------------------------------------------------
 // Data — fake stock price candles

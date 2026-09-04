@@ -1,10 +1,8 @@
-'use client'
-
-import { faker } from '@faker-js/faker'
-import { useEffect, useState } from 'react'
-import { SparkLineChart } from '@mui/x-charts/SparkLineChart'
 import { Button } from '@/components/ui/button'
 import ChartSection from '@/features/charts/components/ChartSection'
+import { faker } from '@faker-js/faker'
+import { SparkLineChart } from '@mui/x-charts/SparkLineChart'
+import { useEffect, useState } from 'react'
 
 // ---------------------------------------------------------------------------
 // Data — live request feed (random walk)

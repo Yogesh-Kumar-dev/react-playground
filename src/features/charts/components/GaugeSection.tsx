@@ -1,10 +1,8 @@
-'use client'
-
-import { faker } from '@faker-js/faker'
-import { useState } from 'react'
-import { Gauge, useGaugeState } from '@mui/x-charts/Gauge'
 import { Slider } from '@/components/ui/slider'
 import ChartSection from '@/features/charts/components/ChartSection'
+import { faker } from '@faker-js/faker'
+import { Gauge, useGaugeState } from '@mui/x-charts/Gauge'
+import { useState } from 'react'
 
 // ---------------------------------------------------------------------------
 // Data — server load (slider-controlled; faker only seeds the initial value)

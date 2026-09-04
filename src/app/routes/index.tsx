@@ -57,6 +57,10 @@ const routes = [
                 path: '/charts',
                 lazy: () => import('@/features/charts').then((m) => ({ Component: m.default })),
             },
+            {
+                path: '/tree-view',
+                lazy: () => import('@/features/tree-view').then((m) => ({ Component: m.default })),
+            },
         ],
     },
 ]

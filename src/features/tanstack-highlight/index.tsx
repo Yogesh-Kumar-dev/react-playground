@@ -1,7 +1,3 @@
-'use client'
-
-import { useState } from 'react'
-import { createHighlightedCodeBlockProps } from '@tanstack/highlight/react'
 import { Button } from '@/components/ui/button'
 import { CodeBlock } from '@/features/tanstack-highlight/components/CodeBlock'
 import { highlighter } from '@/features/tanstack-highlight/highlighter'
@@ -20,6 +16,8 @@ import {
   decorationCss,
   themeCss,
 } from '@/features/tanstack-highlight/theme'
+import { createHighlightedCodeBlockProps } from '@tanstack/highlight/react'
+import { useState } from 'react'
 
 const setup = createHighlightedCodeBlockProps({
   highlighter,
@@ -118,9 +116,8 @@ export default function TanstackHighlight() {
               rel="noreferrer"
             >
               landing page
-            </a>
-            : one semantic HTML tree, CSS themes, annotations, and embedded
-            languages.
+            </a>: one semantic HTML tree, CSS themes, annotations, and
+            embedded languages.
           </p>
         </div>
         <div className="flex gap-2">

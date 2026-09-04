@@ -1,10 +1,9 @@
-'use client'
 
-import { parseAsInteger, parseAsStringEnum, useQueryState } from 'nuqs'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
-import { TAB_VALUES } from '@/features/animechan/tab-values'
 import BrowseTab from '@/features/animechan/components/BrowseTab'
 import RandomQuoteTab from '@/features/animechan/components/RandomQuoteTab'
+import { TAB_VALUES } from '@/features/animechan/tab-values'
+import { parseAsInteger, parseAsStringEnum, useQueryState } from 'nuqs'
 
 export default function AnimeChan() {
     const [tab, setTab] = useQueryState(

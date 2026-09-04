@@ -1,10 +1,8 @@
-'use client'
-
-import { faker } from '@faker-js/faker'
-import { useState } from 'react'
-import { SankeyChart } from '@mui/x-charts-premium/SankeyChart'
 import { Button } from '@/components/ui/button'
 import ChartSection from '@/features/charts/components/ChartSection'
+import { faker } from '@faker-js/faker'
+import { SankeyChart } from '@mui/x-charts-premium/SankeyChart'
+import { useState } from 'react'
 
 // ---------------------------------------------------------------------------
 // Data — traffic flow from sources through pages to goals

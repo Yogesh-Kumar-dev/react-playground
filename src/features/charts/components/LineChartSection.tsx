@@ -1,11 +1,9 @@
-'use client'
-
-import { faker } from '@faker-js/faker'
-import { useMemo } from 'react'
-import { parseAsStringLiteral, useQueryState } from 'nuqs'
-import { LineChart } from '@mui/x-charts/LineChart'
 import { Button } from '@/components/ui/button'
 import ChartSection from '@/features/charts/components/ChartSection'
+import { faker } from '@faker-js/faker'
+import { LineChart } from '@mui/x-charts/LineChart'
+import { parseAsStringLiteral, useQueryState } from 'nuqs'
+import { useMemo } from 'react'
 
 // ---------------------------------------------------------------------------
 // Data — daily active users over the last 90 days

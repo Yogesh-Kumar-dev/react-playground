@@ -1,10 +1,8 @@
-'use client'
-
-import { faker } from '@faker-js/faker'
-import { useReducer } from 'react'
-import { RadarChart } from '@mui/x-charts/RadarChart'
 import { Button } from '@/components/ui/button'
 import ChartSection from '@/features/charts/components/ChartSection'
+import { faker } from '@faker-js/faker'
+import { RadarChart } from '@mui/x-charts/RadarChart'
+import { useReducer } from 'react'
 
 // ---------------------------------------------------------------------------
 // Data — developer team stats

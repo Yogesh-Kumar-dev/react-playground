@@ -1,4 +1,3 @@
-'use client'
 
 import { Button } from '@/components/ui/button'
 import {
@@ -12,13 +11,14 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { animechanAPI, type AnimeSummary } from '@/features/animechan/api'
 import { queryKeys } from '@/features/animechan/query-keys'
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query'
+import type { ReactNode } from 'react'
 import { QuoteDisplay } from './QuoteDisplay'
 
 interface AnimeDetailProps {
     anime: AnimeSummary | null
 }
 
-export default function AnimeDetail({ anime }: AnimeDetailProps) {
+export default function AnimeDetail({ anime }: Readonly<AnimeDetailProps>) {
     // /anime/:id -> anime info (summary, episode count)
     const detailQuery = useQuery({
         queryKey: queryKeys.anime.detail(anime?.id ?? -1),
@@ -55,6 +55,82 @@ export default function AnimeDetail({ anime }: AnimeDetailProps) {
     const quotes = quotesQuery.data?.pages.flat() ?? []
     const hasReachedEnd = quotesQuery.isFetchNextPageError
 
+    let nextPageLabel: string
+    if (quotesQuery.isFetchingNextPage) {
+        nextPageLabel = 'Loading…'
+    } else if (hasReachedEnd) {
+        nextPageLabel = 'No more quotes'
+    } else {
+        nextPageLabel = 'Load more quotes'
+    }
+
+    let detailContent: ReactNode
+    if (detailQuery.isPending) {
+        detailContent = (
+            <div className="space-y-2">
+                <Skeleton className="h-4 w-full" />
+                <Skeleton className="h-4 w-11/12" />
+                <Skeleton className="h-4 w-3/4" />
+            </div>
+        )
+    } else if (detailQuery.isError) {
+        detailContent = (
+            <p className="text-sm text-destructive">
+                {(detailQuery.error as Error).message}
+            </p>
+        )
+    } else {
+        detailContent = detailQuery.data && (
+            <p className="text-sm leading-relaxed text-muted-foreground">
+                {detailQuery.data.summary}
+            </p>
+        )
+    }
+
+    let quotesContent: ReactNode
+    if (quotesQuery.isPending) {
+        quotesContent = (
+            <div className="space-y-3">
+                <Skeleton className="h-12 w-full" />
+                <Skeleton className="h-12 w-full" />
+                <Skeleton className="h-12 w-full" />
+            </div>
+        )
+    } else if (quotesQuery.isError && quotes.length === 0) {
+        quotesContent = (
+            <p className="text-sm text-destructive">
+                {(quotesQuery.error as Error).message}
+            </p>
+        )
+    } else if (quotes.length > 0) {
+        quotesContent = (
+            <>
+                <ul className="space-y-3">
+                    {quotes.map((quote, index) => (
+                        <li key={`${quote.content}-${index}`}>
+                            <QuoteDisplay quote={quote} compact />
+                        </li>
+                    ))}
+                </ul>
+                <Button
+                    variant="outline"
+                    size="sm"
+                    className="w-full"
+                    disabled={quotesQuery.isFetchingNextPage || hasReachedEnd}
+                    onClick={() => quotesQuery.fetchNextPage()}
+                >
+                    {nextPageLabel}
+                </Button>
+            </>
+        )
+    } else {
+        quotesContent = (
+            <p className="text-sm text-muted-foreground">
+                No quotes found for this anime.
+            </p>
+        )
+    }
+
     return (
         <Card>
             <CardHeader>
@@ -70,68 +146,12 @@ export default function AnimeDetail({ anime }: AnimeDetailProps) {
                 </CardDescription>
             </CardHeader>
             <CardContent className="space-y-5">
-                {detailQuery.isPending ? (
-                    <div className="space-y-2">
-                        <Skeleton className="h-4 w-full" />
-                        <Skeleton className="h-4 w-11/12" />
-                        <Skeleton className="h-4 w-3/4" />
-                    </div>
-                ) : detailQuery.isError ? (
-                    <p className="text-sm text-destructive">
-                        {(detailQuery.error as Error).message}
-                    </p>
-                ) : (
-                    detailQuery.data && (
-                        <p className="text-sm leading-relaxed text-muted-foreground">
-                            {detailQuery.data.summary}
-                        </p>
-                    )
-                )}
+                {detailContent}
 
                 <div className="space-y-3">
                     <h3 className="text-sm font-medium">Quotes</h3>
 
-                    {quotesQuery.isPending ? (
-                        <div className="space-y-3">
-                            <Skeleton className="h-12 w-full" />
-                            <Skeleton className="h-12 w-full" />
-                            <Skeleton className="h-12 w-full" />
-                        </div>
-                    ) : quotesQuery.isError && quotes.length === 0 ? (
-                        <p className="text-sm text-destructive">
-                            {(quotesQuery.error as Error).message}
-                        </p>
-                    ) : quotes.length > 0 ? (
-                        <>
-                            <ul className="space-y-3">
-                                {quotes.map((quote, index) => (
-                                    <li key={`${quote.content}-${index}`}>
-                                        <QuoteDisplay quote={quote} compact />
-                                    </li>
-                                ))}
-                            </ul>
-                            <Button
-                                variant="outline"
-                                size="sm"
-                                className="w-full"
-                                disabled={
-                                    quotesQuery.isFetchingNextPage ||
-                                    hasReachedEnd
-                                }
-                                onClick={() => quotesQuery.fetchNextPage()}
-                            >
-                                {quotesQuery.isFetchingNextPage
-                                    ? 'Loading…'
-                                    : hasReachedEnd
-                                      ? 'No more quotes'
-                                      : 'Load more quotes'}
-                            </Button>
-                        </>
-                    ) : (
-                        <p className="text-sm text-muted-foreground">
-                            No quotes found for this anime.
-                        </p>
-                    )}
+                    {quotesContent}
                 </div>
             </CardContent>
         </Card>

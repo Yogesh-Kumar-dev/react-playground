@@ -1,6 +1,3 @@
-'use client'
-
-import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import {
     Card,
@@ -14,6 +11,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { animechanAPI } from '@/features/animechan/api'
 import { queryKeys } from '@/features/animechan/query-keys'
 import { useQuery } from '@tanstack/react-query'
+import { useState } from 'react'
 import { QuoteDisplay } from './QuoteDisplay'
 
 type Mode = 'anime' | 'character' | 'random'
@@ -59,25 +57,29 @@ export default function RandomQuoteTab({
     mode,
     value = '',
     onValueChange,
-}: RandomQuoteTabProps) {
+}: Readonly<RandomQuoteTabProps>) {
     const meta = MODE_META[mode]
     const [draft, setDraft] = useState(value)
 
     const isRandom = mode === 'random'
     const submitted = isRandom ? '' : value
 
+    let queryKey
+    let queryFn
+    if (isRandom) {
+        queryKey = queryKeys.quotes.random
+        queryFn = () => animechanAPI.getRandomQuote()
+    } else if (mode === 'anime') {
+        queryKey = queryKeys.quotes.randomByAnime(submitted)
+        queryFn = () => animechanAPI.getRandomQuoteByAnime(submitted)
+    } else {
+        queryKey = queryKeys.quotes.randomByCharacter(submitted)
+        queryFn = () => animechanAPI.getRandomQuoteByCharacter(submitted)
+    }
+
     const query = useQuery({
-        queryKey: isRandom
-            ? queryKeys.quotes.random
-            : mode === 'anime'
-              ? queryKeys.quotes.randomByAnime(submitted)
-              : queryKeys.quotes.randomByCharacter(submitted),
-        queryFn: () =>
-            isRandom
-                ? animechanAPI.getRandomQuote()
-                : mode === 'anime'
-                  ? animechanAPI.getRandomQuoteByAnime(submitted)
-                  : animechanAPI.getRandomQuoteByCharacter(submitted),
+        queryKey,
+        queryFn,
         enabled: isRandom ? true : submitted.trim().length > 0,
         staleTime: isRandom ? 0 : undefined,
     })

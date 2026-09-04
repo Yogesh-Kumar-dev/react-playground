@@ -1,6 +1,3 @@
-'use client'
-
-import type { ReactNode } from 'react'
 import {
     Card,
     CardAction,
@@ -9,6 +6,7 @@ import {
     CardHeader,
     CardTitle,
 } from '@/components/ui/card'
+import type { ReactNode } from 'react'
 
 interface ChartSectionProps {
     title: string
@@ -27,7 +25,7 @@ export default function ChartSection({
     usecase,
     action,
     children,
-}: ChartSectionProps) {
+}: Readonly<ChartSectionProps>) {
     return (
         <Card>
             <CardHeader>
