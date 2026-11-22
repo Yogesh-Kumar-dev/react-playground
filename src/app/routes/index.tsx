@@ -61,6 +61,10 @@ const routes = [
                 path: '/tree-view',
                 lazy: () => import('@/features/tree-view').then((m) => ({ Component: m.default })),
             },
+            {
+                path: '/browser-storage',
+                lazy: () => import('@/features/browser-storage').then((m) => ({ Component: m.default })),
+            },
         ],
     },
 ]

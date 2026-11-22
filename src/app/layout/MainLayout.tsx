@@ -14,7 +14,7 @@ import {
     SidebarRail,
     SidebarTrigger,
 } from '@/components/ui/sidebar'
-import { BookOpenText, ChartColumnBig, Code, FolderTree, House, Image, Puzzle, TextCursorInput } from 'lucide-react'
+import { BookOpenText, ChartColumnBig, Code, DatabaseZap, FolderTree, House, Image, Puzzle, TextCursorInput } from 'lucide-react'
 import { NuqsAdapter } from 'nuqs/adapters/react-router/v7'
 import { NavLink, Outlet, useLocation } from 'react-router-dom'
 
@@ -28,6 +28,7 @@ const navItems = [
     { to: '/charts', label: 'Charts', icon: ChartColumnBig },
 
     { to: '/tree-view', label: 'Tree View', icon: FolderTree },
+    { to: '/browser-storage', label: 'Browser Storage', icon: DatabaseZap },
     { to: '/data-grid', label: 'Data Grid Pro', icon: Image },
     { to: '/ag-grid', label: 'AG Grid', icon: Image },
     // { to: '/', label: 'File upload', icon: Image },
